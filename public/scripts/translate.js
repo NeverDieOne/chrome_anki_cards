@@ -41,20 +41,23 @@ function createPopUp(text) {
         left: ${posX}px;
         border:1px solid #eeeeee;
         padding: 15px;
-        background-color: #8dcaff;
+        background-color: #f5f5f5;
         border-radius: 10px;
         z-index: 999;
-        text-align: center;"
+        text-align: center;
+        max-width: 500px;
+        box-shadow: 5px 5px 10px gray;"
     >
-        <div style="display: inline-block" id="translateText">${text}</div>
+        <div style="display: inline-block; color: black;" id="translateText">${text}</div>
         <br />
         <br />
         <button
             id="addToDeck"
             style="border-radius: 5px;
             border:1px solid #f5f5f5;
-            background-color: #7fcbff;
-            display: inline-block;"
+            background-color: #ffffff;
+            display: inline-block;
+            color: black;"
         >Добавить в колоду</button>
     </div>
     `
