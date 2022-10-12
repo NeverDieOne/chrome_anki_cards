@@ -32,7 +32,10 @@
 
 <main>
   <div class="container">
-    <div class="input-group mb-3 mt-5">
+    <div class="text-center mt-2">
+      <h3>AnkiCardsBot Extension</h3>
+    </div>
+    <div class="input-group mb-3 mt-3">
       <label class="input-group-text" for="inputGroupSelect01">Колода</label>
       <select on:change={changeDeckId} class="form-select">
         {#each userDecks as deck}
