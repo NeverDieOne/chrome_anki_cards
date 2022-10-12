@@ -27,6 +27,8 @@
 
   function changeDeckId(event) {
     localStorage.setItem('currentDeckId', event.target.value)
+    // @ts-ignore
+    chrome.storage.sync.set({'currentDeckId': event.target.value})
   }
 </script>
 

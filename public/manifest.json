@@ -8,7 +8,8 @@
         "default_icon": "hello_extensions.png"
     },
     "permissions": [
-        "activeTab"
+        "activeTab",
+        "storage"
     ],
     "content_scripts": [
         {
