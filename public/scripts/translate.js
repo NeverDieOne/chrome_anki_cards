@@ -12,17 +12,20 @@ function getMouseY() {
 
 
 function addCardToDeck() {
-    let translateElement = document.getElementById('translate')
-    translateElement.parentNode.removeChild(translateElement)
-
     let selection = window.getSelection();
     let selectionText = selection.toString();
 
+    let translateText = document.getElementById('translateText')
+
+    console.log(translateText.innerText)
     console.log(selectionText)
 
     chrome.storage.sync.get(['currentDeckId'], function(items) {
         console.log(items.currentDeckId)
     });
+
+    let translateElement = document.getElementById('translate')
+    translateElement.parentNode.removeChild(translateElement)
 }
 
 
@@ -43,7 +46,7 @@ function createPopUp(text) {
         z-index: 999;
         text-align: center;"
     >
-        <div style="display: inline-block">${text}</div>
+        <div style="display: inline-block" id="translateText">${text}</div>
         <br />
         <br />
         <button
@@ -63,8 +66,13 @@ function onMouseUpdate(e) {
     y = e.pageY;
   }
 
+async function getTranslation(text) {
+    let response = await fetch(`http://127.0.0.1:9999/anki/translate?text=${text}`)
+    return response.json() 
+}
 
-function handleKeyUp(event) {
+
+async function handleKeyUp(event) {
     if (event.altKey && event.code == 'KeyT') {
         event.preventDefault();
         event.stopPropagation();
@@ -81,7 +89,8 @@ function handleKeyUp(event) {
             return
         }
 
-        let popup = createPopUp(selectionText)
+        let translation = await getTranslation(selectionText)
+        let popup = createPopUp(translation)
         document.body.insertAdjacentHTML('beforeend', popup)
         
         addButton = document.getElementById('addToDeck')
