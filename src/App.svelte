@@ -1,9 +1,8 @@
 <script>
   import { onMount } from 'svelte';
-  // @ts-ignore
   import axios from 'axios';
 
-  const ankiApi = 'http://127.0.0.1:9999'
+  const ankiApi = 'https://anki.neverdieone.ru'
   let extensionKey = localStorage.getItem('extensionKey')
   $: userDecks = []
   let selected = localStorage.getItem('currentDeckId')
@@ -19,7 +18,6 @@
 
   function saveExtensionKey(event) {
     let inputElement = document.getElementById('extensionKey')
-    // @ts-ignore
     extensionKey = inputElement.value
     localStorage.setItem('extensionKey', extensionKey)
     updateDecks()
@@ -27,7 +25,6 @@
 
   function changeDeckId(event) {
     localStorage.setItem('currentDeckId', event.target.value)
-    // @ts-ignore
     chrome.storage.sync.set({'currentDeckId': event.target.value})
   }
 </script>

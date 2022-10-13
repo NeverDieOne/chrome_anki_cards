@@ -1,5 +1,6 @@
 var x = null;
 var y = null;
+const ankiApi = 'https://anki.neverdieone.ru'
 
 function getMouseX() {
     return x;
@@ -19,7 +20,7 @@ function addCardToDeck() {
     chrome.storage.sync.get(['currentDeckId'], async function(items) {
         let deckId = items.currentDeckId
         let response = await fetch(
-            `http://127.0.0.1:9999/anki/${deckId}/card?fields=${selectionText}::${translateText}`,
+            `${ankiApi}/anki/${deckId}/card?fields=${selectionText}::${translateText}`,
             {
                 method: 'POST'
             }
@@ -73,7 +74,7 @@ function onMouseUpdate(e) {
   }
 
 async function getTranslation(text) {
-    let response = await fetch(`http://127.0.0.1:9999/translate/?text=${text}`)
+    let response = await fetch(`${ankiApi}/translate/?text=${text}`)
     return response.json() 
 }
 
