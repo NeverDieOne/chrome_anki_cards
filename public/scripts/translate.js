@@ -70,7 +70,7 @@ function onMouseUpdate(e) {
   }
 
 async function getTranslation(text) {
-    let response = await fetch(`http://127.0.0.1:9999/anki/translate?text=${text}`)
+    let response = await fetch(`http://127.0.0.1:9999/translate/?text=${text}`)
     return response.json() 
 }
 
