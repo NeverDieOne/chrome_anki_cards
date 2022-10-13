@@ -16,7 +16,7 @@ jobs:
           npm run build --if-present
 
       - name: Zip artifact
-        run: zip AnkiCardExtension.zip ./dist/* -r
+        run: zip AnkiCardExtension.zip ./AnkiCardExtension/* -r
 
       - name: Create release
         uses: softprops/action-gh-release@v1
@@ -25,5 +25,6 @@ jobs:
           tag_name: Release
           prerelease: false
           draft: false
+          body_path: CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
