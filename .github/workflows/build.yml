@@ -24,6 +24,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
+          body_path: CHANGELOG.md
           tag_name: Release
           release_name: AnkiBotExtension ${{ steps.date.outputs.date }}
           draft: false
