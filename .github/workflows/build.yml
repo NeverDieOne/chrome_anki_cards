@@ -16,12 +16,13 @@ jobs:
           npm run build --if-present
 
       - name: Zip artifact
-        run: zip AnkiCardExtension.zip ./AnkiCardExtension/* -r
+        run: zip AnkiBotExtension.zip ./AnkiBotExtension/* -r
 
       - name: Create release
         uses: softprops/action-gh-release@v1
         with:
-          files: ./AnkiCardExtension.zip
+          name: AnkiBotExtension ${{ steps.date.outputs.date }}
+          files: ./AnkiBotExtension.zip
           tag_name: Release
           prerelease: false
           draft: false
