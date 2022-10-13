@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name: "Build and create artifact"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -15,22 +16,30 @@ jobs:
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
         with:
-          name: AnkiBotExtension
+          name: AnkiBotExtension.zip
           path: dist
 
   publish:
-    name: "Publish to GitHub Packages"
+    name: "Publish to GitHub Release"
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - name: Upload
-      uses: actions/download-artifact@v3
+    - name: release
+      uses: actions/create-release@v1
+      id: create_release
       with:
-          name: AnkiBotExtension
-    - uses: actions/setup-node@v3
-      with:
-        node-version: '16.x'
-        registry-url: 'https://registry.npmjs.org'
-    - run: npm publish dist
+        draft: false
+        prerelease: false
+        release_name: ChromeAnkiExtension
+        tag_name: ${{ github.ref }}
       env:
-        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+        GITHUB_TOKEN: ${{ github.token }}
+    - name: upload artifact
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./AnkiBotExtension.zip
+        asset_name: AnkiBotExtension.zip
+        asset_content_type: application/zip
