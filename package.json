@@ -17,5 +17,9 @@
     "@popperjs/core": "^2.11.6",
     "axios": "^1.1.2",
     "bootstrap": "^5.2.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NeverDieOne/chrome_anki_cards.git"
   }
 }

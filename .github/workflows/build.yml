@@ -17,3 +17,20 @@ jobs:
         with:
           name: AnkiBotExtension
           path: dist
+
+  publish:
+    name: "Publish to GitHub Packages"
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Upload
+      uses: actions/download-artifact@v3
+      with:
+          name: AnkiBotExtension
+    - uses: actions/setup-node@v3
+      with:
+        node-version: '16.x'
+        registry-url: 'https://registry.npmjs.org'
+    - run: npm publish dist
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
