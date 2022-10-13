@@ -4,12 +4,12 @@
   import axios from 'axios';
 
   const ankiApi = 'http://127.0.0.1:9999'
-  let userName = localStorage.getItem('tgNickname')
+  let extensionKey = localStorage.getItem('extensionKey')
   $: userDecks = []
   let selected = localStorage.getItem('currentDeckId')
 
   async function updateDecks() {
-    let response = await axios.get(`${ankiApi}/anki/${userName}/decks`)
+    let response = await axios.get(`${ankiApi}/anki/decks?extension_key=${extensionKey}`)
     userDecks = response.data
   }
 
@@ -17,11 +17,11 @@
     await updateDecks()
   })
 
-  function saveTelegramNickname(event) {
-    let inputElement = document.getElementById('tgNickname')
+  function saveExtensionKey(event) {
+    let inputElement = document.getElementById('extensionKey')
     // @ts-ignore
-    userName = inputElement.value
-    localStorage.setItem('tgNickname', userName)
+    extensionKey = inputElement.value
+    localStorage.setItem('extensionKey', extensionKey)
     updateDecks()
   }
 
@@ -50,8 +50,8 @@
       </select>
     </div>
     <div class="input-group mb-3">
-      <input type="text" class="form-control" placeholder="Введи ник в ТГ" id="tgNickname" value="{userName}">
-      <button class="btn btn-outline-secondary" type="button" id="button" on:click={saveTelegramNickname}>Сохранить</button>
+      <input type="text" class="form-control" placeholder="AnkiBot Extension Key" id="extensionKey" value="{extensionKey}">
+      <button class="btn btn-outline-secondary" type="button" id="button" on:click={saveExtensionKey}>Сохранить</button>
     </div>
   </div>
 </main>

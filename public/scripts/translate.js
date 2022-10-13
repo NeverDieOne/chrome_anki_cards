@@ -102,6 +102,13 @@ async function handleKeyUp(event) {
         addButton = document.getElementById('addToDeck')
         addButton.addEventListener('click', addCardToDeck)
     }
+
+    if (event.code == 'Escape') {
+        let translateElement = document.getElementById('translate')
+        if (translateElement) {
+            translateElement.parentNode.removeChild(translateElement)
+        }
+    }
 }
 
 document.addEventListener('keyup', handleKeyUp, {
