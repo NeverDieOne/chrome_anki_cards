@@ -14,14 +14,17 @@ function getMouseY() {
 function addCardToDeck() {
     let selection = window.getSelection();
     let selectionText = selection.toString();
+    let translateText = document.getElementById('translateText').innerText
 
-    let translateText = document.getElementById('translateText')
-
-    console.log(translateText.innerText)
-    console.log(selectionText)
-
-    chrome.storage.sync.get(['currentDeckId'], function(items) {
-        console.log(items.currentDeckId)
+    chrome.storage.sync.get(['currentDeckId'], async function(items) {
+        let deckId = items.currentDeckId
+        let response = await fetch(
+            `http://127.0.0.1:9999/anki/${deckId}/card?fields=${selectionText}::${translateText}`,
+            {
+                method: 'POST'
+            }
+        )
+        console.log(response.json())
     });
 
     let translateElement = document.getElementById('translate')
