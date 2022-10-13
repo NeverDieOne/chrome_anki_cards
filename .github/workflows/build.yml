@@ -24,7 +24,7 @@ jobs:
     needs: [build]
     runs-on: ubuntu-latest
     steps:
-    - name: release
+    - name: Create release
       uses: actions/create-release@v1
       id: create_release
       with:
@@ -34,7 +34,12 @@ jobs:
         tag_name: ${{ github.ref }}
       env:
         GITHUB_TOKEN: ${{ github.token }}
-    - name: upload artifact
+        steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+          name: AnkiBotExtension.zip
+    - name: Upload artifact to release
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
