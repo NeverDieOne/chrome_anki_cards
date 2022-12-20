@@ -1,16 +1,4 @@
-var x = null;
-var y = null;
 const ankiApi = 'https://anki.neverdieone.ru'
-
-function getMouseX() {
-    return x;
-  }
-
-
-function getMouseY() {
-    return y;
-}
-
 
 function addCardToDeck() {
     let selection = window.getSelection();
@@ -32,17 +20,13 @@ function addCardToDeck() {
     translateElement.parentNode.removeChild(translateElement)
 }
 
-
-function createPopUp(text) {
-    let posY = getMouseY()
-    let posX = getMouseX()
-
+function createPopUp(text, x, y) {
     return `
     <div 
         id="translate"
         style="position: absolute;
-        top: ${posY}px;
-        left: ${posX}px;
+        top: ${y}px;
+        left: ${x}px;
         border:1px solid #eeeeee;
         padding: 15px;
         background-color: #f5f5f5;
@@ -67,17 +51,10 @@ function createPopUp(text) {
     `
 }
 
-
-function onMouseUpdate(e) {
-    x = e.pageX;
-    y = e.pageY;
-  }
-
 async function getTranslation(text) {
     let response = await fetch(`${ankiApi}/translate/?text=${text}`)
     return response.json() 
 }
-
 
 async function handleKeyUp(event) {
     if (event.altKey && event.code == 'KeyT') {
@@ -96,8 +73,11 @@ async function handleKeyUp(event) {
             return
         }
 
+        let oRange = selection.getRangeAt(0); //get the text range
+        let oRect = oRange.getBoundingClientRect();
+
         let translation = await getTranslation(selectionText)
-        let popup = createPopUp(translation)
+        let popup = createPopUp(translation, oRect.right, oRect.bottom)
         document.body.insertAdjacentHTML('beforeend', popup)
         
         addButton = document.getElementById('addToDeck')
@@ -112,12 +92,20 @@ async function handleKeyUp(event) {
     }
 }
 
+function onClick(event) {
+    let elementId = event.target.id
+    if (elementId.includes('translate') || elementId.includes('translateText')) {
+        return
+    }
+
+    let translateElement = document.getElementById('translate')
+    if (translateElement) {
+        translateElement.parentNode.removeChild(translateElement)
+    }
+}
+
 document.addEventListener('keyup', handleKeyUp, {
     capture: false,
 });
-document.addEventListener('mousemove', onMouseUpdate, false);
-document.addEventListener('mouseenter', onMouseUpdate, false);
-
-
-
+document.addEventListener('click', onClick, false)
 console.log('Translator is ready')
