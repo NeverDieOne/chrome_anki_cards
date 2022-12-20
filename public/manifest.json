@@ -4,8 +4,7 @@
     "description": "Help to load anki cards in @AnkiCardBot",
     "version": "1.0",
     "action": {
-        "default_popup": "index.html",
-        "default_icon": "hello_extensions.png"
+        "default_popup": "index.html"
     },
     "permissions": [
         "activeTab",
@@ -13,7 +12,9 @@
     ],
     "content_scripts": [
         {
-            "js": ["scripts/translate.js"],
+            "js": [
+                "scripts/translate.js"
+            ],
             "matches": [
                 "http://*/*",
                 "https://*/*"
