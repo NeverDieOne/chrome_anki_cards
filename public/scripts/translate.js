@@ -57,7 +57,7 @@ async function handleKeyUp(event) {
         let oRect = oRange.getBoundingClientRect();
 
         let translation = await getTranslation(selectionText)
-        let popup = createPopUp(translation, oRect.right, oRect.bottom)
+        let popup = createPopUp(translation, oRect.right, oRect.bottom + window.scrollY)
         document.body.insertAdjacentHTML('beforeend', popup)
         
         addButton = document.getElementById('addToDeckAnki')

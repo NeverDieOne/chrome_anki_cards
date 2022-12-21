@@ -1,1 +1,2 @@
-- Change button name
+- Change border radius
+- Fix scroll page
