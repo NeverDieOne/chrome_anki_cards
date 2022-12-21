@@ -1,2 +1,1 @@
-- Customize button
-- Add css to extension
+- Change button name

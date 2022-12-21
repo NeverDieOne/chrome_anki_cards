@@ -26,7 +26,7 @@ function createPopUp(text, x, y) {
         <div id="translateTextAnki">${text}</div>
         <br />
         <br />
-        <button id="addToDeckAnki" class="floating-button">Добавить в колоду</button>
+        <button id="addToDeckAnki" class="floating-button">В колоду</button>
     </div>
     `
 }
