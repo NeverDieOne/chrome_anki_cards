@@ -1,2 +1,2 @@
-- Add first release
-- Change tgNickname to extension_token from telegram bot
+- Customize button
+- Add css to extension
