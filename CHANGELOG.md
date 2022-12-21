@@ -1,2 +1,1 @@
-- Change border radius
-- Fix scroll page
+- Change style
