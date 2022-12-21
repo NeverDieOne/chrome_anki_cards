@@ -15,6 +15,9 @@
             "js": [
                 "scripts/translate.js"
             ],
+            "css": [
+                "scripts/style.css"
+            ],
             "matches": [
                 "http://*/*",
                 "https://*/*"
