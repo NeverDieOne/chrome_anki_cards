@@ -23,6 +23,14 @@ function createPopUp(from, text, x, y) {
 }
 
 
+function deletePopup() {
+    let translateElement = document.getElementById('translateAnki')
+    if (translateElement) {
+        translateElement.parentNode.removeChild(translateElement)
+    }
+}
+
+
 function addCardToDeck() {
     let translateText = document.getElementById('translateTextAnki').innerText
     let from = document.getElementById('translateTextAnki').dataset.translateFrom
@@ -40,8 +48,7 @@ function addCardToDeck() {
         console.log(response.json())
     });
 
-    let translateElement = document.getElementById('translateAnki')
-    translateElement.parentNode.removeChild(translateElement)
+    deletePopup()
 }
 
 
@@ -50,23 +57,18 @@ async function getTranslation(text) {
     return response.json() 
 }
 
+
 async function handleKeyUp(event) {
-    if (event.altKey && event.code == 'KeyT') {
-        event.preventDefault();
-        event.stopPropagation();
+    if (event.code == 'Escape') {
+        deletePopup()
+    }
+}
 
-        let translateElement = document.getElementById('translateAnki')
-        if (translateElement) {
-            translateElement.parentNode.removeChild(translateElement)
-            return
-        }
 
-        let selection = window.getSelection();
-        let selectionText = selection.toString();
-        if (!selectionText) {
-            return
-        }
-
+async function onClick(event) {
+    let selection = window.getSelection();
+    let selectionText = selection.toString();
+    if (selectionText && event.ctrlKey) {
         let oRange = selection.getRangeAt(0); //get the text range
         let oRect = oRange.getBoundingClientRect();
 
@@ -76,27 +78,17 @@ async function handleKeyUp(event) {
         
         addButton = document.getElementById('addToDeckAnki')
         addButton.addEventListener('click', addCardToDeck)
+        return
     }
 
-    if (event.code == 'Escape') {
-        let translateElement = document.getElementById('translateAnki')
-        if (translateElement) {
-            translateElement.parentNode.removeChild(translateElement)
-        }
-    }
-}
-
-function onClick(event) {
     let elementId = event.target.id
     if (elementId.includes('translateAnki') || elementId.includes('translateTextAnki')) {
         return
     }
 
-    let translateElement = document.getElementById('translateAnki')
-    if (translateElement) {
-        translateElement.parentNode.removeChild(translateElement)
-    }
+    deletePopup()
 }
+
 
 document.addEventListener('keyup', handleKeyUp, {
     capture: false,

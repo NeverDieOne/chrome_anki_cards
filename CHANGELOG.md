@@ -1,1 +1,1 @@
-- Make style simplier
+- Change hot key button
