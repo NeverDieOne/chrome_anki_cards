@@ -69,6 +69,8 @@ async function onClick(event) {
     let selection = window.getSelection();
     let selectionText = selection.toString();
     if (selectionText && event.ctrlKey) {
+        deletePopup();
+
         let oRange = selection.getRangeAt(0); //get the text range
         let oRect = oRange.getBoundingClientRect();
 
