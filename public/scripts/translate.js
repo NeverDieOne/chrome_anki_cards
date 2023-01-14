@@ -75,7 +75,12 @@ async function onClick(event) {
         let oRect = oRange.getBoundingClientRect();
 
         let translation = await getTranslation(selectionText)
-        let popup = createPopUp(selectionText, translation, oRect.right, oRect.bottom + window.scrollY)
+        let popup = createPopUp(
+            selectionText,
+            translation,
+            oRect.right - oRect.width / 2,
+            oRect.bottom + window.scrollY
+        )
         document.body.insertAdjacentHTML('beforeend', popup)
         
         addButton = document.getElementById('addToDeckAnki')
